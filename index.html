@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JECRC Campus Marketplace</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav class="nav">
+    <div class="inner container">
+      <div class="brand">
+        <div class="nav-logo">
+        </div>
+        <span class="logo">🎓JECRC Campus Marketplace</span>
+        <span id="userBadge" class="badge">Guest</span>
+      </div>
+      <div class="tabs">
+        <button data-tab="market" class="active">Marketplace</button>
+        <button data-tab="sell">Sell</button>
+        <button data-tab="wishlist">Wishlist</button>
+        <button data-tab="chat">Chat</button>
+        <button data-tab="admin">Admin</button>
+        <button data-tab="profile">Profile</button>
+      </div>
+    </div>
+  </nav>
+
+  <div id="toasts" class="toast"></div>
+
+  <main class="container layout">
+    <aside class="left">
+      <section class="card">
+        <h3>🔐 Login / Sign up</h3>
+        <div class="grid">
+          <label class="field">
+            <span>Name</span>
+            <input id="authName" placeholder="Your name" />
+          </label>
+          <label class="field">
+            <span>Email (college mail preferred)</span>
+            <input id="authEmail" placeholder="you@college.ac.in" />
+          </label>
+          <label class="field">
+            <span>Hostel / Location</span>
+            <input id="authHostel" placeholder="BH-3, GH-1, Off-campus…" />
+          </label>
+          <label class="field">
+            <span>Branch / Year</span>
+            <input id="authBranch" placeholder="CSE, 3rd Year" />
+          </label>
+        </div>
+        <div class="toolbar">
+          <button id="btnLogin" class="btn brand">Save & Login</button>
+          <button id="btnLogout" class="btn ghost">Logout</button>
+        </div>
+        <p class="muted small">
+          Accounts with <code>.edu</code> or <code>.ac.in</code> show a
+          <strong>Verified</strong> badge.
+        </p>
+      </section>
+
+      <section class="card">
+        <h3>🔎 Search & Filters</h3>
+        <div class="grid">
+          <label class="field">
+            <span>Search</span>
+            <input id="q" placeholder="Book name, gadget, seller…" />
+          </label>
+          <label class="field">
+            <span>Category</span>
+            <select id="fCategory">
+              <option value="">All</option>
+              <option>Books</option>
+              <option>Gadgets</option>
+              <option>Notes</option>
+              <option>Stationery</option>
+              <option>Lab Equipment</option>
+              <option>Other</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Condition</span>
+            <select id="fCondition">
+              <option value="">Any</option>
+              <option>New</option>
+              <option>Like New</option>
+              <option>Used</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Price Min (₹)</span>
+            <input id="fMin" type="number" min="0" />
+          </label>
+          <label class="field">
+            <span>Price Max (₹)</span>
+            <input id="fMax" type="number" min="0" />
+          </label>
+          <label class="field">
+            <span>Near Hostel</span>
+            <input id="fHostel" placeholder="optional e.g. BH-3" />
+          </label>
+        </div>
+        <div class="toolbar">
+          <button id="btnFilter" class="btn">Apply</button>
+          <button id="btnReset" class="btn ghost">Reset</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h3>🧠 Tips</h3>
+        <ul class="tips">
+          <li>Use in‑app chat; avoid sharing passwords/OTPs.</li>
+          <li>Prefer meeting in public areas. Check item before paying.</li>
+          <li>Use <strong>Report</strong> if something looks suspicious.</li>
+        </ul>
+      </section>
+    </aside>
+
+    <section class="right">
+      <!-- MARKETPLACE LIST --> 
+      <section id="tab-market" class="tab card">
+        <div class="space">
+          <h3>🛒 Marketplace</h3>
+          <span class="muted small" id="countText"></span>
+        </div>
+        <div id="marketList" class="list"></div>
+        <div id="emptyMarket" class="empty hide">No items match your filters.</div>
+      </section>
+
+      <!-- SELL FORM -->
+      <section id="tab-sell" class="tab card hide">
+        <h3>📤 Sell an item</h3>
+        <div class="grid two">
+          <label class="field"><span>Title</span><input id="sTitle" /></label>
+          <label class="field"><span>Category</span>
+            <select id="sCategory">
+              <option>Books</option>
+              <option>Gadgets</option>
+              <option>Notes</option>
+              <option>Stationery</option>
+              <option>Lab Equipment</option>
+              <option>Other</option>
+            </select></label>
+          <label class="field"><span>Price (₹)</span><input id="sPrice" type="number" min="0" /></label>
+          <label class="field"><span>Condition</span>
+            <select id="sCondition">
+              <option>New</option><option>Like New</option><option>Used</option>
+            </select></label>
+          <label class="field"><span>Payment Methods</span>
+            <div class="checks">
+              <label><input type="checkbox" id="pmUPI" checked/> UPI</label>
+              <label><input type="checkbox" id="pmCash" /> Cash</label>
+            </div>
+          </label>
+          <label class="field full"><span>Description</span><textarea id="sDesc" rows="3"></textarea></label>
+          <label class="field"><span>Image</span><input id="sImg" type="file" accept="image/*"/></label>
+          <label class="field"><span>Exchange / Donation</span>
+            <select id="sExchange"><option>No</option><option>Exchange</option><option>Free/Donation</option></select></label>
+        </div>
+        <div class="toolbar">
+          <button id="btnPost" class="btn good">Post Listing</button>
+          <button id="btnClearSell" class="btn ghost">Clear</button>
+        </div>
+      </section>
+
+      <!-- WISHLIST -->
+      <section id="tab-wishlist" class="tab card hide">
+        <h3>⭐ Wishlist</h3>
+        <div id="wishList" class="list"></div>
+        <div id="emptyWish" class="empty">No items saved.</div>
+      </section>
+
+      <!-- CHAT -->
+      <section id="tab-chat" class="tab card hide">
+        <div class="space"><h3>💬 Chat</h3><span class="muted small">Buyer–Seller messages</span></div>
+        <div id="chatList" class="chat-list"></div>
+        <div id="chatEmpty" class="empty">No conversations yet.</div>
+        <div id="chatBox" class="chat-box hide">
+          <div id="chatHeader" class="chat-header"></div>
+          <div id="chatThread" class="chat-thread"></div>
+          <div class="chat-input">
+            <input id="chatMsg" placeholder="Type a message or offer (₹)..." />
+            <button id="btnSend" class="btn brand">Send</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ADMIN -->
+      <section id="tab-admin" class="tab card hide">
+        <h3>🛡️ Admin Panel</h3>
+        <p class="muted small">Approve/Remove listings and see reports (prototype, local only).</p>
+        <div id="adminList" class="list"></div>
+        <div id="adminEmpty" class="empty">No items.</div>
+      </section>
+
+      <!-- PROFILE -->
+      <section id="tab-profile" class="tab card hide">
+        <h3>🙍 Profile</h3>
+        <div id="profileBox"></div>
+      </section>
+    </section>
+  </main>
+
+  <footer class="footer">© JECRC Campus Marketplace (LocalStorage)</footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
